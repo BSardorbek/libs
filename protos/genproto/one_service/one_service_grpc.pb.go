@@ -18,84 +18,84 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// PostClient is the client API for Post service.
+// OneMicroserviceClient is the client API for OneMicroservice service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type PostClient interface {
+type OneMicroserviceClient interface {
 	Upload(ctx context.Context, in *RequestParam, opts ...grpc.CallOption) (*Response, error)
 }
 
-type postClient struct {
+type oneMicroserviceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewPostClient(cc grpc.ClientConnInterface) PostClient {
-	return &postClient{cc}
+func NewOneMicroserviceClient(cc grpc.ClientConnInterface) OneMicroserviceClient {
+	return &oneMicroserviceClient{cc}
 }
 
-func (c *postClient) Upload(ctx context.Context, in *RequestParam, opts ...grpc.CallOption) (*Response, error) {
+func (c *oneMicroserviceClient) Upload(ctx context.Context, in *RequestParam, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/one_service.Post/Upload", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/one_service.OneMicroservice/Upload", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// PostServer is the server API for Post service.
-// All implementations should embed UnimplementedPostServer
+// OneMicroserviceServer is the server API for OneMicroservice service.
+// All implementations should embed UnimplementedOneMicroserviceServer
 // for forward compatibility
-type PostServer interface {
+type OneMicroserviceServer interface {
 	Upload(context.Context, *RequestParam) (*Response, error)
 }
 
-// UnimplementedPostServer should be embedded to have forward compatible implementations.
-type UnimplementedPostServer struct {
+// UnimplementedOneMicroserviceServer should be embedded to have forward compatible implementations.
+type UnimplementedOneMicroserviceServer struct {
 }
 
-func (UnimplementedPostServer) Upload(context.Context, *RequestParam) (*Response, error) {
+func (UnimplementedOneMicroserviceServer) Upload(context.Context, *RequestParam) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Upload not implemented")
 }
 
-// UnsafePostServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to PostServer will
+// UnsafeOneMicroserviceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to OneMicroserviceServer will
 // result in compilation errors.
-type UnsafePostServer interface {
-	mustEmbedUnimplementedPostServer()
+type UnsafeOneMicroserviceServer interface {
+	mustEmbedUnimplementedOneMicroserviceServer()
 }
 
-func RegisterPostServer(s grpc.ServiceRegistrar, srv PostServer) {
-	s.RegisterService(&Post_ServiceDesc, srv)
+func RegisterOneMicroserviceServer(s grpc.ServiceRegistrar, srv OneMicroserviceServer) {
+	s.RegisterService(&OneMicroservice_ServiceDesc, srv)
 }
 
-func _Post_Upload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OneMicroservice_Upload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RequestParam)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PostServer).Upload(ctx, in)
+		return srv.(OneMicroserviceServer).Upload(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/one_service.Post/Upload",
+		FullMethod: "/one_service.OneMicroservice/Upload",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PostServer).Upload(ctx, req.(*RequestParam))
+		return srv.(OneMicroserviceServer).Upload(ctx, req.(*RequestParam))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Post_ServiceDesc is the grpc.ServiceDesc for Post service.
+// OneMicroservice_ServiceDesc is the grpc.ServiceDesc for OneMicroservice service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Post_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "one_service.Post",
-	HandlerType: (*PostServer)(nil),
+var OneMicroservice_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "one_service.OneMicroservice",
+	HandlerType: (*OneMicroserviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Upload",
-			Handler:    _Post_Upload_Handler,
+			Handler:    _OneMicroservice_Upload_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

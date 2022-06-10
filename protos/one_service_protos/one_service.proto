@@ -5,7 +5,7 @@ package one_service;
 option go_package = "genproto/one_service";
 
 
-service Post {
+service OneMicroservice {
   rpc Upload (RequestParam) returns (Response) {}
 }
 
