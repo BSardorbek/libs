@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package one_service;
+
+option go_package = "genproto/one_service";
+
+
+service Post {
+  rpc Upload (RequestParam) returns (Response) {}
+}
+
+message RequestParam {
+  uint32 Page = 1;
+}
+
+message Response {
+  string Message = 1;
+}
