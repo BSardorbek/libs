@@ -1,4 +1,4 @@
-module libs/protos
+module github.com/BSardorbek/libs/protos
 
 go 1.17
 
