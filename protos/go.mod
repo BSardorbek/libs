@@ -3,8 +3,8 @@ module github.com/BSardorbek/libs/protos
 go 1.17
 
 require (
-	google.golang.org/grpc v1.47.0
-	google.golang.org/protobuf v1.28.0
+	google.golang.org/grpc v1.37.0
+	google.golang.org/protobuf v1.26.0
 )
 
 require (
