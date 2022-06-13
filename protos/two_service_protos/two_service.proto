@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package one_service;
+
+option go_package = "genproto/two_service";
+
+
+service TwoMicroservice {
+  rpc Search (ReadAllPostReq) returns (ReadAllPostRes) {}
+  rpc Delete (DeletePostReq) returns (DeletePostRes) {}
+  rpc GetByID (GetByIDPostReq) returns (GetByIDPostRes) {}
+  rpc Update (UpdatePostReq) returns (UpdatePostRes) {}
+}
+
+message GetByIDPostReq {
+  uint32 ID = 1;
+}
+
+message GetByIDPostRes {
+  Post Post = 1;
+}
+
+message UpdatePostReq {
+  Post Post = 1;
+}
+
+message UpdatePostRes {
+  string Message = 1;
+}
+
+message ReadAllPostReq {
+  uint32 ID = 1;
+  uint32 UserID = 2;
+  string Sort = 3;
+  string Limit = 4;
+  string Offset = 5;
+}
+
+message ReadAllPostRes {
+  repeated Post Post = 1;
+}
+
+message DeletePostReq {
+  uint32 ID = 1;
+}
+
+message DeletePostRes {}
+
+message Post {
+  uint32 ID = 1;
+  uint32 UserID = 2;
+  string Title = 3;
+  string Body = 4;
+}
