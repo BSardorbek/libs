@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package one_service;
+package two_service;
 
 option go_package = "genproto/two_service";
 

@@ -38,7 +38,7 @@ func NewTwoMicroserviceClient(cc grpc.ClientConnInterface) TwoMicroserviceClient
 
 func (c *twoMicroserviceClient) Search(ctx context.Context, in *ReadAllPostReq, opts ...grpc.CallOption) (*ReadAllPostRes, error) {
 	out := new(ReadAllPostRes)
-	err := c.cc.Invoke(ctx, "/one_service.TwoMicroservice/Search", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/two_service.TwoMicroservice/Search", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *twoMicroserviceClient) Search(ctx context.Context, in *ReadAllPostReq, 
 
 func (c *twoMicroserviceClient) Delete(ctx context.Context, in *DeletePostReq, opts ...grpc.CallOption) (*DeletePostRes, error) {
 	out := new(DeletePostRes)
-	err := c.cc.Invoke(ctx, "/one_service.TwoMicroservice/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/two_service.TwoMicroservice/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *twoMicroserviceClient) Delete(ctx context.Context, in *DeletePostReq, o
 
 func (c *twoMicroserviceClient) GetByID(ctx context.Context, in *GetByIDPostReq, opts ...grpc.CallOption) (*GetByIDPostRes, error) {
 	out := new(GetByIDPostRes)
-	err := c.cc.Invoke(ctx, "/one_service.TwoMicroservice/GetByID", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/two_service.TwoMicroservice/GetByID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *twoMicroserviceClient) GetByID(ctx context.Context, in *GetByIDPostReq,
 
 func (c *twoMicroserviceClient) Update(ctx context.Context, in *UpdatePostReq, opts ...grpc.CallOption) (*UpdatePostRes, error) {
 	out := new(UpdatePostRes)
-	err := c.cc.Invoke(ctx, "/one_service.TwoMicroservice/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/two_service.TwoMicroservice/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func _TwoMicroservice_Search_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/one_service.TwoMicroservice/Search",
+		FullMethod: "/two_service.TwoMicroservice/Search",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TwoMicroserviceServer).Search(ctx, req.(*ReadAllPostReq))
@@ -138,7 +138,7 @@ func _TwoMicroservice_Delete_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/one_service.TwoMicroservice/Delete",
+		FullMethod: "/two_service.TwoMicroservice/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TwoMicroserviceServer).Delete(ctx, req.(*DeletePostReq))
@@ -156,7 +156,7 @@ func _TwoMicroservice_GetByID_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/one_service.TwoMicroservice/GetByID",
+		FullMethod: "/two_service.TwoMicroservice/GetByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TwoMicroserviceServer).GetByID(ctx, req.(*GetByIDPostReq))
@@ -174,7 +174,7 @@ func _TwoMicroservice_Update_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/one_service.TwoMicroservice/Update",
+		FullMethod: "/two_service.TwoMicroservice/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TwoMicroserviceServer).Update(ctx, req.(*UpdatePostReq))
@@ -186,7 +186,7 @@ func _TwoMicroservice_Update_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TwoMicroservice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "one_service.TwoMicroservice",
+	ServiceName: "two_service.TwoMicroservice",
 	HandlerType: (*TwoMicroserviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

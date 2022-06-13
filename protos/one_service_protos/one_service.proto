@@ -7,6 +7,7 @@ option go_package = "genproto/one_service";
 
 service OneMicroservice {
   rpc Upload (RequestParam) returns (Response) {}
+  rpc Search (SearchPostReq) returns (SearchPostRes) {}
 }
 
 message RequestParam {
@@ -15,4 +16,23 @@ message RequestParam {
 
 message Response {
   string Message = 1;
+}
+
+message SearchPostReq{
+  uint32 ID = 1;
+  uint32 UserID = 2;
+  string Sort = 3;
+  string Limit = 4;
+  string Offset = 5;
+}
+
+message SearchPostRes{
+  repeated Post Post = 1;
+}
+
+message Post {
+  uint32 ID = 1;
+  uint32 UserID = 2;
+  string Title = 3;
+  string Body = 4;
 }

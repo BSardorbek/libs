@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OneMicroserviceClient interface {
 	Upload(ctx context.Context, in *RequestParam, opts ...grpc.CallOption) (*Response, error)
+	Search(ctx context.Context, in *SearchPostReq, opts ...grpc.CallOption) (*SearchPostRes, error)
 }
 
 type oneMicroserviceClient struct {
@@ -42,11 +43,21 @@ func (c *oneMicroserviceClient) Upload(ctx context.Context, in *RequestParam, op
 	return out, nil
 }
 
+func (c *oneMicroserviceClient) Search(ctx context.Context, in *SearchPostReq, opts ...grpc.CallOption) (*SearchPostRes, error) {
+	out := new(SearchPostRes)
+	err := c.cc.Invoke(ctx, "/one_service.OneMicroservice/Search", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OneMicroserviceServer is the server API for OneMicroservice service.
 // All implementations should embed UnimplementedOneMicroserviceServer
 // for forward compatibility
 type OneMicroserviceServer interface {
 	Upload(context.Context, *RequestParam) (*Response, error)
+	Search(context.Context, *SearchPostReq) (*SearchPostRes, error)
 }
 
 // UnimplementedOneMicroserviceServer should be embedded to have forward compatible implementations.
@@ -55,6 +66,9 @@ type UnimplementedOneMicroserviceServer struct {
 
 func (UnimplementedOneMicroserviceServer) Upload(context.Context, *RequestParam) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Upload not implemented")
+}
+func (UnimplementedOneMicroserviceServer) Search(context.Context, *SearchPostReq) (*SearchPostRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
 }
 
 // UnsafeOneMicroserviceServer may be embedded to opt out of forward compatibility for this service.
@@ -86,6 +100,24 @@ func _OneMicroservice_Upload_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OneMicroservice_Search_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchPostReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OneMicroserviceServer).Search(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/one_service.OneMicroservice/Search",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OneMicroserviceServer).Search(ctx, req.(*SearchPostReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OneMicroservice_ServiceDesc is the grpc.ServiceDesc for OneMicroservice service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,6 +128,10 @@ var OneMicroservice_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Upload",
 			Handler:    _OneMicroservice_Upload_Handler,
+		},
+		{
+			MethodName: "Search",
+			Handler:    _OneMicroservice_Search_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
